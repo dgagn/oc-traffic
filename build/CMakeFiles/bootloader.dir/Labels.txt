@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/Users/danygagnon/esp/traffic/build/CMakeFiles/bootloader
+/Users/danygagnon/esp/traffic/build/CMakeFiles/bootloader.rule
+/Users/danygagnon/esp/traffic/build/CMakeFiles/bootloader-complete.rule
+/Users/danygagnon/esp/traffic/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/Users/danygagnon/esp/traffic/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/Users/danygagnon/esp/traffic/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/Users/danygagnon/esp/traffic/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/Users/danygagnon/esp/traffic/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/Users/danygagnon/esp/traffic/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/Users/danygagnon/esp/traffic/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

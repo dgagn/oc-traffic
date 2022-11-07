@@ -1,0 +1,28 @@
+dependencies:
+  ovior/lcd_controller:
+    component_hash: null
+    source:
+      path: /Users/danygagnon/esp/traffic/components/lcd_controller
+      type: local
+    version: '*'
+  ovior/mode:
+    component_hash: null
+    source:
+      path: /Users/danygagnon/esp/traffic/components/mode
+      type: local
+    version: '*'
+  ovior/simulation:
+    component_hash: null
+    source:
+      path: /Users/danygagnon/esp/traffic/components/simulation
+      type: local
+    version: '*'
+  ovior/traffic_light:
+    component_hash: null
+    source:
+      path: /Users/danygagnon/esp/traffic/components/traffic_light
+      type: local
+    version: '*'
+manifest_hash: 7261bff158051c3b62d81bee09cc4e222b639fbcac2202edafd6511c0e61f33a
+target: esp32
+version: 1.0.0

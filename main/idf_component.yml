@@ -1,0 +1,9 @@
+dependencies:
+  ovior/lcd_controller:
+    path: ../components/lcd_controller
+  ovior/traffic_light:
+    path: ../components/traffic_light
+  ovior/mode:
+    path: ../components/mode
+  ovior/simulation:
+    path: ../components/simulation
