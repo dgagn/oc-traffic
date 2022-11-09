@@ -77,9 +77,6 @@ _Noreturn void p_create_traffic_tasks(void *param) {
   };
 
   for (int i = 0; i < sizeof(intersections) / sizeof(intersection_t); ++i) {
-    full_reset_pin(intersections[i].green, GPIO_MODE_OUTPUT);
-    full_reset_pin(intersections[i].yellow, GPIO_MODE_OUTPUT);
-    full_reset_pin(intersections[i].red, GPIO_MODE_OUTPUT);
     xTaskCreate(task_intersection_light, "intersection light", 2048, &intersections[i], 1, &handles[i]);
   }
 
@@ -93,11 +90,12 @@ _Noreturn void p_create_traffic_tasks(void *param) {
       if (handles[i] != NULL) {
         vTaskDelete(handles[i]);
         handles[i] = NULL;
-        for (int j = 0; i < sizeof(intersections) / sizeof(intersection_t); ++i) {
-          gpio_set_level(intersections[j].green, 0);
-          gpio_set_level(intersections[j].yellow, 0);
-          gpio_set_level(intersections[j].red, 0);
-        }
+        gpio_set_level(GPIO_GREEN_1, 0);
+        gpio_set_level(GPIO_YELLOW_1, 0);
+        gpio_set_level(GPIO_RED_1, 0);
+        gpio_set_level(GPIO_GREEN_2, 0);
+        gpio_set_level(GPIO_YELLOW_2, 0);
+        gpio_set_level(GPIO_RED_2, 0);
         intersections[i].level = intersections[i].level == 0 ? 1 : 0;
         xTaskCreate(task_intersection_light, "intersection light", 2048, &intersections[i], 1, &handles[i]);
       }
@@ -107,6 +105,12 @@ _Noreturn void p_create_traffic_tasks(void *param) {
 }
 
 void create_traffic_tasks(void) {
+  full_reset_pin(GPIO_GREEN_1, GPIO_MODE_OUTPUT);
+  full_reset_pin(GPIO_YELLOW_1, GPIO_MODE_OUTPUT);
+  full_reset_pin(GPIO_RED_1, GPIO_MODE_OUTPUT);
+  full_reset_pin(GPIO_GREEN_2, GPIO_MODE_OUTPUT);
+  full_reset_pin(GPIO_YELLOW_2, GPIO_MODE_OUTPUT);
+  full_reset_pin(GPIO_RED_2, GPIO_MODE_OUTPUT);
   full_reset_pin(GPIO_BUS, GPIO_MODE_OUTPUT);
   xTaskCreate(p_create_traffic_tasks, "traffic light", 2048, NULL, 1, NULL);
   xTaskCreate(bus_task, "bus light", 2048, NULL, 1, NULL);

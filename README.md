@@ -1,3 +1,11 @@
+---
+title: Traffic
+author: Dany Gagnon Austin Brodeur Thomas Barkley
+colorlinks: true
+---
+
+**Auteurs: Dany Gagnon, Austin Brodeur, Thomas Barkley**
+
 | Targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-S2 | ESP32-S3 |
 |---------|-------|----------|----------|----------|----------|
 
@@ -68,6 +76,33 @@ clique sur ce bouton, la lumière changais de vert à jaune, jaune à rouge etc.
 de changer l'état des deux lumières d'intersections. Le meilleur moyen qu'on a trouvé était de supprimer les anciennes taches
 et d'en créer deux nouvelles pour les lumières de traffique.
 
+### Structure du code
+
+**Delayer**
+
+Le delayer a des fonctions utilitaires qui permet de gérer les ticks dans un esp32. C'est une librairie qui est utilisé pas mal partout
+dans le code et à travers les composants. Si on veut ajouter d'autres utilitaire qui a rapport au ticker, on le mettrais ici.
+
+**LCD Controller**
+
+Le lcd controller est une librairie maison qui est basé sur le pdf [HD44780.pdf](https://www.sparkfun.com/datasheets/LCD/HD44780.pdf).
+On a plusieurs fonctions qui permets de travailler avec l'écran et d'envoyer des strings, bouger le curseur et écrire à partir de
+la fin.
+
+**Mode**
+
+Pour gérer le mode, on a une valeure globale qui garde un `uint8_t` pour le stocker, donc de 0 à 255.
+
+- Mode 1: 1 seconde = 1 minute
+- Mode 2: 1 seconde = 2 minute
+- Mode 3: 1 seconde = 3 minute
+
+Le mode, le temps et le temps d'attente d'un véhicule sont affiché sur un écran LED
+
+**Simulation**
+
+
+
 ## Filage
 
 ### Difficulté du fillage
@@ -104,3 +139,4 @@ et d'en créer deux nouvelles pour les lumières de traffique.
 - De l'autre côté, j'ai brancher le 5v à la colonne plus et le GND à la colonne moins.
   Tout les autre system son brancher sur ce board. J'ai donc tout organiser le fillage pour essayer d'avoir le plus de
   place pour travailler.
+
