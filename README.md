@@ -52,6 +52,8 @@ projet
 
 Vous trouverez ci-dessous une brève explication des fichiers restants dans le dossier du projet.
 
+\newpage
+
 ```
 |- components
 |   |- delayer
@@ -75,6 +77,8 @@ Vous trouverez ci-dessous une brève explication des fichiers restants dans le d
 |_ README.md # Le fichier que tu lis présentement
 |_ CMakeLists.txt 
 ```
+
+\newpage
 
 ### Difficulté du code
 
