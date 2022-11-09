@@ -2,12 +2,17 @@
 title: Traffic
 author: Dany Gagnon Austin Brodeur Thomas Barkley
 colorlinks: true
+figsintext : yes
 ---
 
-**Auteurs: Dany Gagnon, Austin Brodeur, Thomas Barkley**
+\tableofcontents
+
+\newpage
+
 
 | Targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-S2 | ESP32-S3 |
 |---------|-------|----------|----------|----------|----------|
+
 
 # _Traffic_
 
@@ -25,9 +30,19 @@ l'équivalent d'une seconde dans la simulation:
 
 Le mode, le temps et le temps d'attente d'un véhicule sont affiché sur un écran LED
 
-![lcd](docs/lcd.png)
+## Créer le PDF
+
+```shell
+pandoc README.md -o readme.pdf
+```
 
 ## Code
+
+Trouver le /dev/tty* à flasher.
+
+```shell
+idf.py -p /dev/tty.usbserial-0001 flash
+```
 
 Le projet à été créer avec le language C et utilise CMake. La configuration de construction du projet est contenue
 dans `CMakeLists.txt`
@@ -38,27 +53,27 @@ projet
 Vous trouverez ci-dessous une brève explication des fichiers restants dans le dossier du projet.
 
 ```
-├── components
-│   ├── delayer
-│         Le delayer a des fonctions utilitaires qui permet
-│         de gérer les ticks dans un esp32.
-│   ├── lcd_controller
-│         C'est une bibliothèque custom qui permet de gérer
-│         la communication en i2c avec l'écran LCD.
-│   ├── mode
-│         Tous se qui a rapport au mode est dans ce composant
-│   ├── simulation
-│         La simulation est le temps qui se passe dans celle-ci.
-│   ├── sonar
-│         Le sonar sur le breadboard
-│   ├── traffic_light
-│         Le code qui gère les lumière de traffique.
-├── main
-│   ├── CMakeLists.txt
-│   ├── idf_component.yml # Les composants qu'on utilise        
-│   └── main.c # l'entrée de l'application
-└── README.md # Le fichier que tu lis présentement
-└── CMakeLists.txt 
+|- components
+|   |- delayer
+|         Le delayer a des fonctions utilitaires qui permet
+|         de gérer les ticks dans un esp32.
+|   |- lcd_controller
+|         C'est une bibliothèque custom qui permet de gérer
+|         la communication en i2c avec l'écran LCD.
+|   |- mode
+|         Tous se qui a rapport au mode est dans ce composant
+|   |- simulation
+|         La simulation est le temps qui se passe dans celle-ci.
+|   |- sonar
+|         Le sonar sur le breadboard
+|   |- traffic_light
+|         Le code qui gère les lumière de traffique.
+|- main
+|   |- CMakeLists.txt
+|   |- idf_component.yml # Les composants qu'on utilise        
+|   |_ main.c # l'entrée de l'application
+|_ README.md # Le fichier que tu lis présentement
+|_ CMakeLists.txt 
 ```
 
 ### Difficulté du code
@@ -140,7 +155,7 @@ Le code qui gère les lumière de traffique.
 
 - Au finale, Le fillage ressemble à ceci :
 
-  ![alt text](./docs/fillage.png)
+  ![Le filage final, photo prise par Dany copyrighted](./docs/fillage.png)
 
 ### Organisation du fillage
 
