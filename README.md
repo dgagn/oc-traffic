@@ -3,6 +3,12 @@ title: Traffic
 author: Dany Gagnon Austin Brodeur Thomas Barkley
 colorlinks: true
 figsintext : yes
+output:
+  pdf_document:
+    extra_dependencies: ["float"]
+header-includes:
+  - \usepackage{float}
+  - \floatplacement{figure}{H}
 ---
 
 \tableofcontents
@@ -10,8 +16,8 @@ figsintext : yes
 \newpage
 
 
-| Targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-S2 | ESP32-S3 |
-|---------|-------|----------|----------|----------|----------|
+| Architecture | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-S2 | ESP32-S3 |
+|--------------|-------|----------|----------|----------|----------|
 
 
 # _Traffic_
@@ -20,7 +26,9 @@ Ce projet simule une intersection à l'aide d'un ESP32 sur FreeRTOS. La simulati
 Nous avons des lumières de circulation pour une voie principale et secondaire,
 un détecteur de distance qui permet de limiter le temps d'attente d'une voiture.
 Une lumière permet d'ouvrir et fermer une voie d'autobus selon une plage horaire.
+
 Deux boutons permettent certains changements. 
+
 Un bouton peut changer le mode de temps, le mode détermine l'équivalent d'une seconde dans la simulation.
 Le mode, le temps et le temps d'attente d'un véhicule sont affichés sur un écran LED.
 
