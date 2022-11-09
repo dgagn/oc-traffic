@@ -111,6 +111,10 @@ Le sonar sur le breadboard.
 
 Le code qui gère les lumière de traffique.
 
+### Diagramme finale
+
+![Diagramme finale](docs/diagram.png)
+
 ## Filage
 
 ### Difficulté du fillage
