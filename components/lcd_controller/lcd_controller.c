@@ -6,6 +6,12 @@
 #include "rom/ets_sys.h"
 #include "lcd_controller.h"
 #include "driver/i2c.h"
+#include "simulation.h"
+#include "mode.h"
+#include "delayer.h"
+
+#define SDA 21
+#define SCL 22
 
 #define LCD_BACKLIGHT 0x08
 #define LCD_ENABLE 0x04
@@ -60,10 +66,10 @@ void lcd_pulse(uint8_t data) {
   ets_delay_us(500);
 }
 
-void lcd_write_nibble(uint8_t nibble, uint8_t mode) {
+void lcd_write_nibble(uint8_t nibble, uint8_t m) {
   i2c_cmd_handle_t cmd = i2c_cmd_link_create();
 
-  uint8_t data = (nibble & 0xF0) | mode | LCD_BACKLIGHT;
+  uint8_t data = (nibble & 0xF0) | m | LCD_BACKLIGHT;
 
   ESP_ERROR_CHECK(i2c_master_start(cmd));
   ESP_ERROR_CHECK(i2c_master_write_byte(cmd, (lcd_initial_info.address << 1) | I2C_MASTER_WRITE, 1));
@@ -75,9 +81,9 @@ void lcd_write_nibble(uint8_t nibble, uint8_t mode) {
   lcd_pulse(data);
 }
 
-void lcd_write_byte(uint8_t data, uint8_t mode) {
-  lcd_write_nibble(data & 0xf0, mode);
-  lcd_write_nibble((data << 4) & 0xf0, mode);
+void lcd_write_byte(uint8_t data, uint8_t m) {
+  lcd_write_nibble(data & 0xf0, m);
+  lcd_write_nibble((data << 4) & 0xf0, m);
 }
 
 void lcd_write_char(char c) {
@@ -162,4 +168,38 @@ void lcd_write_string_from_end(char *str, uint8_t row) {
   lcd_cursor_to(&position);
 
   lcd_write_string(str);
+}
+
+_Noreturn void task_lcd_screen(void *params) {
+  char buffer[16];
+  for (;;) {
+    lcd_home();
+    lcd_clear();
+    sprintf(buffer, "Mode %d", mode);
+    lcd_write_string(buffer);
+    memset(&buffer[0], 0, sizeof(buffer));
+    sprintf(buffer, "%d", car_time);
+    lcd_write_string_from_end(buffer, 0);
+    lcd_cursor_next_line();
+    uint8_t hours = time / 60;
+    uint8_t minutes = time - (hours * 60);
+    lcd_write_string("Temps");
+    memset(&buffer[0], 0, sizeof(buffer));
+    sprintf(buffer, "%02d:%02d", hours, minutes);
+    lcd_write_string_from_end(buffer, 1);
+    delay_s(1);
+  }
+}
+
+void create_lcd_tasks() {
+  lcd_info_t info = {
+      .address = 0x27,
+      .sda = SDA,
+      .scl = SCL,
+      .max_rows = 2,
+      .max_columns = 16,
+  };
+
+  lcd_init(&info);
+  xTaskCreate(task_lcd_screen, "lcd screen", 2048, NULL, 2, NULL);
 }

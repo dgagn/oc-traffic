@@ -30,3 +30,7 @@ void lcd_write_string(char *str);
 void lcd_write_string_from_end(char *str, uint8_t row);
 
 void lcd_write_char(char c);
+
+void task_lcd_screen(void *params);
+
+void create_lcd_tasks();

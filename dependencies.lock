@@ -17,12 +17,18 @@ dependencies:
       path: /Users/danygagnon/esp/traffic/components/simulation
       type: local
     version: '*'
+  ovior/sonar:
+    component_hash: null
+    source:
+      path: /Users/danygagnon/esp/traffic/components/sonar
+      type: local
+    version: '*'
   ovior/traffic_light:
     component_hash: null
     source:
       path: /Users/danygagnon/esp/traffic/components/traffic_light
       type: local
     version: '*'
-manifest_hash: 7261bff158051c3b62d81bee09cc4e222b639fbcac2202edafd6511c0e61f33a
+manifest_hash: c96530b9890b7f766b5bc5bc485b74398576fc93bbf551addc53e6773b01c416
 target: esp32
 version: 1.0.0

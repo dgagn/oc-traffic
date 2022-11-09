@@ -7,3 +7,5 @@ dependencies:
     path: ../components/mode
   ovior/simulation:
     path: ../components/simulation
+  ovior/sonar:
+    path: ../components/sonar

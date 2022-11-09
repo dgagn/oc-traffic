@@ -11,4 +11,6 @@ typedef struct intersection {
     uint8_t level;
 } intersection_t;
 
-void delay_s(TickType_t seconds);
+void create_traffic_tasks(void);
+
+void bus_task(void *param);

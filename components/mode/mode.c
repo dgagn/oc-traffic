@@ -21,3 +21,9 @@ _Noreturn void task_btn(void *params) {
     }
   }
 }
+
+void create_mode_tasks() {
+  gpio_reset_pin(GPIO_BTN);
+  gpio_set_direction(GPIO_BTN, GPIO_MODE_INPUT);
+  xTaskCreate(task_btn, "mode button", 2048, NULL, 3, NULL);
+}
