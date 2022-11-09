@@ -1,35 +1,99 @@
-| Supported Targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-S2 | ESP32-S3 |
-| ----------------- | ----- | -------- | -------- | -------- | -------- |
+| Targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-S2 | ESP32-S3 |
+|---------|-------|----------|----------|----------|----------|
 
-# _Sample project_
+# _Traffic_
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+Ce projet simule une intersection a l'aide d'un ESP32 sur FreeRTOS.
+La simulation utilise plusieur composant pour refleter la réalité.
+Nous avons des lumiere de circulation pour une voie principale et secondaire, un detecteur de distance qui permet de
+limiter le temps d'attente d'une voiture.
+Une lumière permet d'ouvrir et fermer une voie d'autobus selon une plage horaire.
+Deux bouton permettent l'altération de la simulation: un bouton peut changer le mode de temps, le mode détermine
+l'équivalent d'une seconde dans la simulation:
 
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+- Mode 1: 1 seconde = 1 minute
+- Mode 2: 1 seconde = 2 minute
+- Mode 3: 1 seconde = 3 minute
 
+Le mode, le temps et le temps d'attente d'un véhicule sont affiché sur un écran LED
 
+![lcd](docs/lcd.png)
 
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
+## Code
 
-## Example folder contents
+Le projet à été créer avec le language C et utilise CMake. La configuration de construction du projet est contenue
+dans `CMakeLists.txt`
+fichiers qui fournissent un ensemble de directives et d'instructions décrivant les fichiers source et les cibles du
+projet
+(exécutable, bibliothèque ou les deux).
 
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
-
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
-
-Below is short explanation of remaining files in the project folder.
+Vous trouverez ci-dessous une brève explication des fichiers restants dans le dossier du projet.
 
 ```
-├── CMakeLists.txt
+├── components
+│   ├── delayer
+│         Le delayer a des fonctions utilitaires qui permet
+│         de gérer les ticks dans un esp32.
+│   ├── lcd_controller
+│         C'est une bibliothèque custom qui permet de gérer
+│         la communication en i2c avec l'écran LCD.
+│   ├── mode
+│         Tous se qui a rapport au mode est dans ce composant
+│   ├── simulation
+│         La simulation est le temps qui se passe dans celle-ci.
+│   ├── sonar
+│         Le sonar sur le breadboard
+│   ├── traffic_light
+│         Le code qui gère les lumière de traffique.
 ├── main
 │   ├── CMakeLists.txt
-│   └── main.c
-└── README.md                  This is the file you are currently reading
+│   ├── idf_component.yml # Les composants qu'on utilise        
+│   └── main.c # l'entrée de l'application
+└── README.md # Le fichier que tu lis présentement
+└── CMakeLists.txt 
 ```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.
+
+### Difficulté du code
+
+- Au début, le fichier `main.c` commencait à avoir beaucoup de lignes de code, donc on a décider de
+créer des composants idf. J'ai eu des problèmes en essayant de créer des composants, parce que la docs
+de esp-idf ne montre pas vraiment ça. Finalement par contre, on a réussi à créer des composants pour
+bien séparer la responsabilité du code.
+- 
+
+## Filage
+
+### Difficulté du fillage
+
+- Durant la première tentative de création du circuit, une de nos led n'allumait pas. Ne sachant pas pourquoi, nous
+  avons déconstruit le circuit
+  entier pour le reconstruire. Le problème est parti de lui même mais ma théorie est que le GPIO n'a pas été reset.
+  Ayant eu le même problemes un autre fois, et l'ayant règlé de cette manière.
+
+
+- Un autre problème rencontrer fut que lors de la construction du deuxième circuit, nosu avons mamquer de place sur le
+  board.
+  La solution a été de rajouter un board.
+
+
+- Lors du fillage du bouton de reset des lumière, mon erreur a été que j'ai brancher le bouton dans un GPIO de reset.
+  Cela
+  avait pour cause de rebooter le système entier. Nous avons donc éviter tout le long du projet d'utiliser le GPIO 0 et
+  2 car ces deux avait le même
+  résultat sur l'ESP-32.
+
+### Fillage Finale
+
+- Au finale, Le fillage ressemble à ceci :
+  ![alt text](./docs/fillage.png)
+
+### Organisation du fillage
+
+- Sur le board à gauche, on voit ici que ce sont les 6 led qui sont misent. Puisque 6 led prend assez de place en
+  fillage,
+  j'ai déside de mettre cela comme sa.
+
+
+- De l'autre côté, j'ai brancher le 5v à la colonne plus et le GND à la colonne moins.
+  Tout les autre system son brancher sur ce board. J'ai donc tout organiser le fillage pour essayer d'avoir le plus de
+  place pour travailler.

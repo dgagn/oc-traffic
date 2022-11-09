@@ -1,6 +1,4 @@
 #include "freertos/FreeRTOS.h"
-#include "driver/gpio.h"
-#include "freertos/task.h"
 #include "lcd_controller.h"
 #include "mode.h"
 #include "traffic_light.h"
