@@ -101,7 +101,15 @@ Le mode, le temps et le temps d'attente d'un véhicule sont affiché sur un écr
 
 **Simulation**
 
+La simulation est le temps qui se passe dans celle-ci.
 
+**Sonar**
+
+Le sonar sur le breadboard.
+
+**Traffic Light**
+
+Le code qui gère les lumière de traffique.
 
 ## Filage
 
