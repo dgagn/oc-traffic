@@ -59,7 +59,14 @@ Vous trouverez ci-dessous une brève explication des fichiers restants dans le d
 créer des composants idf. J'ai eu des problèmes en essayant de créer des composants, parce que la docs
 de esp-idf ne montre pas vraiment ça. Finalement par contre, on a réussi à créer des composants pour
 bien séparer la responsabilité du code.
-- 
+- Aussi, un moment donné, le ESP32 arrêtais pas de reboot sans afficher de message d'erreur. l'ESP32
+supprimais un handle de task qui n'existait pas, alors l'application ne savais pas comment régler ça
+et ça rebootais. Heureusement, on a découvert assez vite qu'il faut s'assurer de regarder le handle à NULL
+avant de delete et cela a fix notre problème.
+- Aussi, le bouton pour changer l'état des lumières était mélangeant. Au début, j'avais fais en sorte que quand on 
+clique sur ce bouton, la lumière changais de vert à jaune, jaune à rouge etc. Mais, on a réalisé en classe que c'était
+de changer l'état des deux lumières d'intersections. Le meilleur moyen qu'on a trouvé était de supprimer les anciennes taches
+et d'en créer deux nouvelles pour les lumières de traffique.
 
 ## Filage
 
