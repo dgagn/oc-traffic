@@ -1,6 +1,5 @@
 ---
 title: Traffic
-author: Dany Gagnon Austin Brodeur Thomas Barkley
 colorlinks: true
 figsintext : yes
 output:
